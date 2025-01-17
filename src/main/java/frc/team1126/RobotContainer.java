@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -89,6 +90,8 @@ public class RobotContainer {
   // controls are front-left positive
   // left stick controls translation
   // right stick controls the angular velocity of the robot
+
+
   Command driveFieldOrientedAnglularVelocity = m_swerve.driveFieldOriented(driveAngularVelocity);
 
   Command driveSetpointGen = m_swerve.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
@@ -119,43 +122,52 @@ public class RobotContainer {
       
         /* REGISTER PATHPLANNER COMMANDS HERE */
      
+    Command test = m_swerve.driveCommand(
+                () -> MathUtil.clamp(MathUtil.applyDeadband(-m_driver.getLeftY(), .1), -1,
+                        1),
+                () -> MathUtil.clamp(MathUtil.applyDeadband(-m_driver.getLeftX(), .1), -1,
+                        1),
+                () -> -m_driver.getRightX());
 
         //OTHER COMMANDS
         //NamedCommands.registerCommand("limelightTarget", new LLRotationAlignCommand(m_swerve).withTimeout(1.5));
-        DriverStation.silenceJoystickConnectionWarning(true);
-        
+        // DriverStation.silenceJoystickConnectionWarning(true);
+
+        m_swerve.setDefaultCommand(test );
         // m_swerve = new SwerveSubsystem(
                 // new File(Filesystem.getDeployDirectory(), "swerve"));
 
-        Command driveFieldOrientedAnglularVelocity = m_swerve.driveCommand(
-                () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftY()*.75, .1), -1,
-                        1),
-                () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftX()*.75, .1), -1,
-                        1),
-                () -> m_driver.getRightX());
+        // Command driveFieldOrientedAnglularVelocity = m_swerve.driveCommand(
+        //         () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftY()*.75, .1), -1,
+        //                 1),
+        //         () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftX()*.75, .1), -1,
+        //                 1),
+        //         () -> m_driver.getRightX());
 
-        m_swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+        // m_swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
        
-        configureChooser();
+        // configureChooser();
 
-        configureDriverBindings();
+        // configureDriverBindings();
 
     }
 
     private void configureDriverBindings() {
         
-        m_driver.leftTrigger().onTrue(new InstantCommand(() -> m_swerve.zeroGyro()));
-        m_driver.a().onTrue((Commands.runOnce(m_swerve::zeroGyro)));
-        m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
-        m_driver.b().whileTrue(
-            m_swerve.driveToPose(
-              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                              );
-                              m_driver.y().whileTrue(m_swerve.aimAtSpeaker(2));
-                              m_driver.start().whileTrue(Commands.none());
-                              m_driver.back().whileTrue(Commands.none());
-                              m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
-                              m_driver.rightBumper().onTrue(Commands.none());
+        
+
+        // m_driver.leftTrigger().onTrue(new InstantCommand(() -> m_swerve.zeroGyro()));
+        // m_driver.a().onTrue((Commands.runOnce(m_swerve::zeroGyro)));
+        // m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
+        // m_driver.b().whileTrue(
+        //     m_swerve.driveToPose(
+        //       new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+        //                       );
+        //                       m_driver.y().whileTrue(m_swerve.aimAtSpeaker(2));
+        //                       m_driver.start().whileTrue(Commands.none());
+        //                       m_driver.back().whileTrue(Commands.none());
+        //                       m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
+        //                       m_driver.rightBumper().onTrue(Commands.none());
     }
    
 
