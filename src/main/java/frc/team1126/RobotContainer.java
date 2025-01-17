@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -89,6 +90,8 @@ public class RobotContainer {
   // controls are front-left positive
   // left stick controls translation
   // right stick controls the angular velocity of the robot
+
+
   Command driveFieldOrientedAnglularVelocity = m_swerve.driveFieldOriented(driveAngularVelocity);
 
   Command driveSetpointGen = m_swerve.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
@@ -119,26 +122,33 @@ public class RobotContainer {
       
         /* REGISTER PATHPLANNER COMMANDS HERE */
      
+    Command test = m_swerve.driveCommand(
+                () -> MathUtil.clamp(MathUtil.applyDeadband(-m_driver.getLeftY(), .1), -1,
+                        1),
+                () -> MathUtil.clamp(MathUtil.applyDeadband(-m_driver.getLeftX(), .1), -1,
+                        1),
+                () -> -m_driver.getRightX());
 
         //OTHER COMMANDS
         //NamedCommands.registerCommand("limelightTarget", new LLRotationAlignCommand(m_swerve).withTimeout(1.5));
-        DriverStation.silenceJoystickConnectionWarning(true);
-        
+        // DriverStation.silenceJoystickConnectionWarning(true);
+
+        m_swerve.setDefaultCommand(test );
         // m_swerve = new SwerveSubsystem(
                 // new File(Filesystem.getDeployDirectory(), "swerve"));
 
-        Command driveFieldOrientedAnglularVelocity = m_swerve.driveCommand(
-                () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftY()*.75, .1), -1,
-                        1),
-                () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftX()*.75, .1), -1,
-                        1),
-                () -> m_driver.getRightX());
+        // Command driveFieldOrientedAnglularVelocity = m_swerve.driveCommand(
+        //         () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftY()*.75, .1), -1,
+        //                 1),
+        //         () -> MathUtil.clamp(MathUtil.applyDeadband(m_driver.getLeftX()*.75, .1), -1,
+        //                 1),
+        //         () -> m_driver.getRightX());
 
-        m_swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+        // m_swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
        
-        configureChooser();
+        // configureChooser();
 
-        configureDriverBindings();
+        // configureDriverBindings();
 
     }
 
