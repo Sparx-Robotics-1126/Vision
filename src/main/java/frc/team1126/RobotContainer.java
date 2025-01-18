@@ -148,7 +148,7 @@ public class RobotContainer {
        
         // configureChooser();
 
-        // configureDriverBindings();
+        configureDriverBindings();
 
     }
 

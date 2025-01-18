@@ -362,7 +362,7 @@ public class Vision
     /**
      * Center Camera
      */
-    CENTER_CAM("center",
+    CENTER_CAM("front",
                new Rotation3d(0, 0, 0),
                new Translation3d(Units.inchesToMeters(13.5),
                                  Units.inchesToMeters(0),
