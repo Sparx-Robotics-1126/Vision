@@ -24,8 +24,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.team1126.Constants.OperatorConstants;
+import frc.team1126.commands.LEDManager;
 import frc.team1126.commands.drive.AbsoluteDriveAdv;
 import frc.team1126.subsystems.SwerveSubsystem;
+import frc.team1126.tools.LEDs.BatteryLED;
+import frc.team1126.tools.LEDs.IAddressableLEDHelper;
+import frc.team1126.tools.LEDs.MultiFunctionLED;
+import frc.team1126.tools.LEDs.ShootLED;
 import swervelib.SwerveInputStream;
 
 public class RobotContainer {
@@ -120,8 +125,14 @@ public class RobotContainer {
 
   Command driveSetpointGenSim = m_swerve.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
    
+private IAddressableLEDHelper[] leds;
+  private MultiFunctionLED multifucntion;
+  private LEDManager ledManager;
+
     public RobotContainer() {
       
+        configureLEDs();  
+
         /* REGISTER PATHPLANNER COMMANDS HERE */
      
     Command test = m_swerve.driveCommand(
@@ -170,6 +181,15 @@ public class RobotContainer {
                               m_driver.rightBumper().onTrue(Commands.none());
     }
    
+public void configureLEDs() {
+    multifucntion = new MultiFunctionLED(
+      new BatteryLED(18));
+
+    leds = new IAddressableLEDHelper[]{multifucntion};
+
+    ledManager = new LEDManager(0, leds);
+    ledManager.schedule();
+  }
 
     double getXSpeed() {
         int pov = m_driver.getHID().getPOV();
