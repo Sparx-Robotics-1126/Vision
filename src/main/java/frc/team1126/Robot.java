@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.team1126.subsystems.CANdleSubsystem;
+import frc.team1126.subsystems.SwerveSubsystem;
 
 public class Robot extends TimedRobot {
     private Command autonomousCommand;
@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
         
 
         SmartDashboard.putData("AUTO CHOICES ", RobotContainer.m_chooser);
+        // SmartDashboard.putData("TEST", SwerveSubsystem.builder);
     }
 
     @Override
@@ -90,19 +91,6 @@ public class Robot extends TimedRobot {
         // robotContainer.setCANdle();
         robotContainer.EndGameRumble();
         robotContainer.upToSpeedRumble();
-
-        // if (ll.hasSpeakerTarget() && RobotContainer.m_storage.getHasNote()) {
-        // if (ll.calculateTargetDistanceInInches() > 40 &&
-        // ll.calculateTargetDistanceInInches() < 45) {
-        // m_candleSubsystem.setLEDState(CANdleSubsystem.LEDState.GREEN);// close angle
-        // } else if (ll.calculateTargetDistanceInInches() > 90 &&
-        // ll.calculateTargetDistanceInInches() < 96) {
-        // m_candleSubsystem.setLEDState(CANdleSubsystem.LEDState.GREEN);
-        // } else if (ll.calculateTargetDistanceInInches() > 110 &&
-        // ll.calculateTargetDistanceInInches() < 114) {
-        // m_candleSubsystem.setLEDState(CANdleSubsystem.LEDState.GREEN);
-        // }
-        // }
     }
 
     @Override

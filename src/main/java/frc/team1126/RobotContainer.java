@@ -6,10 +6,14 @@ package frc.team1126;
 
 import java.io.File;
 
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.util.sendable.SendableBuilder;
@@ -129,10 +133,12 @@ private IAddressableLEDHelper[] leds;
   private MultiFunctionLED multifucntion;
   private LEDManager ledManager;
 
+    PhotonCamera m_noteCamera;
+
     public RobotContainer() {
       
         configureLEDs();  
-
+        m_noteCamera = new PhotonCamera("front");
         /* REGISTER PATHPLANNER COMMANDS HERE */
      
     Command test = m_swerve.driveCommand(
@@ -183,7 +189,7 @@ private IAddressableLEDHelper[] leds;
    
 public void configureLEDs() {
     multifucntion = new MultiFunctionLED(
-      new BatteryLED(18));
+      new BatteryLED(300));
 
     leds = new IAddressableLEDHelper[]{multifucntion};
 

@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.lib.Toolbox.AprilTag;
+import frc.lib.Toolbox.PIDGains;
 
 import java.util.HashMap;
 import java.util.List;
@@ -347,6 +348,13 @@ public final class Constants {
 
         public static final double FIELD_LENGTH = 16.5417;
         public static final double FIELD_WIDTH = 8.0136;
+        
+        public static final PIDGains K_LL_ALIGN_STRAFE_GAINS = new PIDGains(.04, 0.0015, 0.001);
+        public static final PIDGains K_LL_ALIGN_DRIVE_GAINS = new PIDGains(.09, 0.1, 0.1);
+        public static final double K_ALIGN_DRIVE_MOTION_SMOOTHING = 0;
+        public static final double K_ALIGN_STRAFE_MOTION_SMOOTHING = 0;
+
+
 
         
         public static final Transform3d kFrontCameraLocation = new Transform3d(

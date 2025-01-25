@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class AddressableLEDHelper implements IAddressableLEDHelper{
-    public int numLEDs;
+    public static int numLEDs;
 
     // This is to keep track of the led offset in the battery monitor
     AddressableLEDHelper(int numLEDs) {
