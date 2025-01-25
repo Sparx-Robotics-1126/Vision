@@ -23,6 +23,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -71,6 +72,10 @@ public class SwerveSubsystem extends SubsystemBase
    * PhotonVision class to keep an accurate odometry.
    */
  private       Vision              vision;
+
+ private     SendableBuilder      builder;
+
+ public double testVar = 1;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -124,6 +129,8 @@ public class SwerveSubsystem extends SubsystemBase
                                   Constants.MAX_SPEED,
                                   new Pose2d(new Translation2d(Meter.of(2), Meter.of(0)),
                                              Rotation2d.fromDegrees(0)));
+    builder.addDoubleProperty("Test!!!! :D", () -> getTestVar(), (testVar) -> setTestVar(testVar));
+    builder.setSmartDashboardType("RobotPreferences");
   }
 
 //  /**
@@ -144,6 +151,14 @@ public class SwerveSubsystem extends SubsystemBase
      vision.updatePoseEstimation(swerveDrive);
  
     }
+  }
+  
+  public void setTestVar(double num) {
+    testVar = num;
+  }
+
+  public double getTestVar() {
+      return testVar;
   }
 
   @Override
