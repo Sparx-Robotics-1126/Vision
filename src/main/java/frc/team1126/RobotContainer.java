@@ -6,42 +6,33 @@ package frc.team1126;
 
 import java.io.File;
 
+import edu.wpi.first.wpilibj.util.Color8Bit;
+import frc.team1126.commands.LED.ChaseLEDColorCommand;
+import frc.team1126.subsystems.LEDs;
 import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonUtils;
-
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.team1126.Constants.OperatorConstants;
-import frc.team1126.commands.LEDManager;
+//import frc.team1126.commands.LEDManager;
 import frc.team1126.commands.drive.AbsoluteDriveAdv;
 import frc.team1126.subsystems.SwerveSubsystem;
 import frc.team1126.tools.LEDs.BatteryLED;
 import frc.team1126.tools.LEDs.IAddressableLEDHelper;
 import frc.team1126.tools.LEDs.MultiFunctionLED;
-import frc.team1126.tools.LEDs.ShootLED;
 import swervelib.SwerveInputStream;
 
 public class RobotContainer {
 
-    private final int m_rotationAxis = XboxController.Axis.kRightX.value;
-
-    // public static final CANdleSubsystem m_candleSubsystem = new CANdleSubsystem();
+//    private final int m_rotationAxis = XboxController.Axis.kRightX.value;
 
     final static SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -128,16 +119,18 @@ public class RobotContainer {
   Command driveFieldOrientedDirectAngleSim = m_swerve.driveFieldOriented(driveDirectAngleSim);
 
   Command driveSetpointGenSim = m_swerve.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
-   
-private IAddressableLEDHelper[] leds;
-  private MultiFunctionLED multifucntion;
-  private LEDManager ledManager;
+
+//private IAddressableLEDHelper[] leds;
+//  private MultiFunctionLED multifucntion;
+//  private LEDManager ledManager;
+
+    private final LEDs ledSubsystem = new LEDs(0, 300);
 
     PhotonCamera m_noteCamera;
 
     public RobotContainer() {
       
-        configureLEDs();  
+//        configureLEDs();
         m_noteCamera = new PhotonCamera("front");
         /* REGISTER PATHPLANNER COMMANDS HERE */
      
@@ -185,17 +178,19 @@ private IAddressableLEDHelper[] leds;
                               m_driver.back().whileTrue(Commands.none());
                               m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
                               m_driver.rightBumper().onTrue(Commands.none());
+        m_driver.y().onTrue(new ChaseLEDColorCommand(ledSubsystem, new Color8Bit(255, 0, 0), 10)); // Chasing red color
+
     }
    
-public void configureLEDs() {
-    multifucntion = new MultiFunctionLED(
-      new BatteryLED(300));
-
-    leds = new IAddressableLEDHelper[]{multifucntion};
-
-    ledManager = new LEDManager(0, leds);
-    ledManager.schedule();
-  }
+//public void configureLEDs() {
+//    multifucntion = new MultiFunctionLED(
+//      new BatteryLED(300));
+//
+//    leds = new IAddressableLEDHelper[]{multifucntion};
+//
+//    ledManager = new LEDManager(0, leds);
+//    ledManager.schedule();
+//  }
 
     double getXSpeed() {
         int pov = m_driver.getHID().getPOV();
