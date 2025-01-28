@@ -37,6 +37,8 @@ import frc.team1126.tools.LEDs.IAddressableLEDHelper;
 import frc.team1126.tools.LEDs.MultiFunctionLED;
 import swervelib.SwerveInputStream;
 
+import static edu.wpi.first.units.Units.Meter;
+
 public class RobotContainer {
 
 //    private final int m_rotationAxis = XboxController.Axis.kRightX.value;
@@ -191,6 +193,11 @@ public class RobotContainer {
         // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
          m_driver.y().whileTrue(new DriveToAprilTagCommand(m_swerve, m_noteCamera));
+        m_driver.y().whileTrue(m_swerve.driveToPose(new Pose2d(new Translation2d
+                (Meter.of(3.110),
+                        Meter.of(4.179)),
+                Rotation2d.fromDegrees(0))));
+
     }
    
 //public void configureLEDs() {
