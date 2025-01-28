@@ -177,7 +177,7 @@ public class RobotContainer {
         
         m_driver.leftBumper().onTrue(new InstantCommand(() -> m_swerve.zeroGyro()));
         m_driver.a().onTrue((Commands.runOnce(m_swerve::zeroGyro)));
-        m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
+//        m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
         // m_driver.b().whileTrue(
         //     m_swerve.driveToPose(
         //       new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
@@ -192,7 +192,11 @@ public class RobotContainer {
         // m_driver.a().onTrue(new RainbowCommand(ledSubsystem));
         // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
-         m_driver.y().whileTrue(new DriveToAprilTagCommand(m_swerve, m_noteCamera));
+         m_driver.x().whileTrue(new DriveToAprilTagCommand(m_swerve, m_noteCamera));
+        m_driver.b().whileTrue(m_swerve.driveToPose(new Pose2d(new Translation2d
+                (Meter.of(0.944),
+                        Meter.of(0.838)),
+                Rotation2d.fromDegrees(52.374))));
         m_driver.y().whileTrue(m_swerve.driveToPose(new Pose2d(new Translation2d
                 (Meter.of(3.110),
                         Meter.of(4.179)),
