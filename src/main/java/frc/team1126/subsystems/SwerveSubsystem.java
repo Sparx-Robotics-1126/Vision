@@ -147,7 +147,8 @@ public class SwerveSubsystem extends SubsystemBase
      vision.updatePoseEstimation(swerveDrive);
  
     }
-    SmartDashboard.putData(null);
+    SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
+   
   }
 
   @Override
@@ -270,6 +271,8 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public Command driveToPose(Pose2d pose)
   {
+    System.out.println(pose.toString());
+    System.out.println(swerveDrive.getMaximumChassisVelocity());
 // Create the constraints to use while pathfinding
     PathConstraints constraints = new PathConstraints(
         swerveDrive.getMaximumChassisVelocity(), 4.0,

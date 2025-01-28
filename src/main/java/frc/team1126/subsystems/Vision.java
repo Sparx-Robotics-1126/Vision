@@ -100,6 +100,25 @@ public class Vision
     }
   }
 
+public int getFrontTarget(){
+  var results = Cameras.CENTER_CAM.camera.getAllUnreadResults();
+  int targetId = 0;
+        if (!results.isEmpty()) {
+            var result = results.get(results.size() - 1);
+
+            if (result.hasTargets()) {
+                for (PhotonTrackedTarget target : result.getTargets()) {
+                  targetId =target.fiducialId;
+                   
+                    
+                }
+
+            }
+        }
+        return targetId;
+
+}
+
   /**
    * Calculates a target pose relative to an AprilTag on the field.
    *
@@ -643,6 +662,21 @@ public class Vision
     }
 
 
+  }
+
+  public Pose3d getPos(PhotonCamera camera) {
+    var results = camera.getAllUnreadResults();
+    boolean targetVisible = false;
+    var target = results.get(0).getTargets();
+
+    for (var apriltag : target) {
+      if (apriltag.getFiducialId() == 7) {
+          targetVisible = true;
+          return PhotonUtils.estimateFieldToRobotAprilTag(
+                            apriltag.getBestCameraToTarget(), fieldLayout.getTagPose(apriltag.getFiducialId()).get(), new Transform3d(getDistanceFromAprilTag(7),0,0, new Rotation3d()));
+      }
+  }
+    return null;
   }
 
 }

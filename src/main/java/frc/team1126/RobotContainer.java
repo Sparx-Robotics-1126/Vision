@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -6,8 +7,13 @@ package frc.team1126;
 
 import java.io.File;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import frc.team1126.commands.LED.ChaseLEDColorCommand;
+import frc.team1126.commands.LED.GradientCommand;
+import frc.team1126.commands.LED.PulseCommand;
+import frc.team1126.commands.LED.RainbowCommand;
+import frc.team1126.commands.LED.SetSolidColorCommand;
 import frc.team1126.subsystems.LEDs;
 import org.photonvision.PhotonCamera;
 
@@ -24,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.team1126.Constants.OperatorConstants;
 //import frc.team1126.commands.LEDManager;
 import frc.team1126.commands.drive.AbsoluteDriveAdv;
+import frc.team1126.commands.drive.DriveToAprilTagCommand;
 import frc.team1126.subsystems.SwerveSubsystem;
 import frc.team1126.tools.LEDs.BatteryLED;
 import frc.team1126.tools.LEDs.IAddressableLEDHelper;
@@ -166,20 +173,24 @@ public class RobotContainer {
 
     private void configureDriverBindings() {
         
-        m_driver.leftTrigger().onTrue(new InstantCommand(() -> m_swerve.zeroGyro()));
+        m_driver.leftBumper().onTrue(new InstantCommand(() -> m_swerve.zeroGyro()));
         m_driver.a().onTrue((Commands.runOnce(m_swerve::zeroGyro)));
         m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
-        m_driver.b().whileTrue(
-            m_swerve.driveToPose(
-              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                              );
-                            //   m_driver.y().whileTrue(m_swerve.aimAtSpeaker(2));
-                              m_driver.start().whileTrue(Commands.none());
-                              m_driver.back().whileTrue(Commands.none());
-                              m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
-                              m_driver.rightBumper().onTrue(Commands.none());
-        m_driver.y().onTrue(new ChaseLEDColorCommand(ledSubsystem, new Color8Bit(255, 0, 0), 10)); // Chasing red color
-
+        // m_driver.b().whileTrue(
+        //     m_swerve.driveToPose(
+        //       new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+        //                       );
+        //                     //   m_driver.y().whileTrue(m_swerve.aimAtSpeaker(2));
+        //                       m_driver.start().whileTrue(Commands.none());
+        //                       m_driver.back().whileTrue(Commands.none());
+        //                       m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
+        //                       m_driver.rightBumper().onTrue(Commands.none());
+        // m_driver.y().onTrue(new ChaseLEDColorCommand(ledSubsystem, new Color8Bit(255, 0, 0), 10)); // Chasing red color
+        // m_driver.x().onTrue(new GradientCommand(ledSubsystem, new Color8Bit(0,0,255), new Color8Bit(255,0,0)));
+        // m_driver.a().onTrue(new RainbowCommand(ledSubsystem));
+        // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
+         //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
+         m_driver.y().whileTrue(new DriveToAprilTagCommand(m_swerve, m_noteCamera));
     }
    
 //public void configureLEDs() {
