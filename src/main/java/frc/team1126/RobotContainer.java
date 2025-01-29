@@ -144,7 +144,7 @@ public class RobotContainer {
         //NamedCommands.registerCommand("limelightTarget", new LLRotationAlignCommand(m_swerve).withTimeout(1.5));
         // DriverStation.silenceJoystickConnectionWarning(true);
 
-        swerve.setDefaultCommand(test );
+//        swerve.setDefaultCommand(test );
         // m_swerve = new SwerveSubsystem(
                 // new File(Filesystem.getDeployDirectory(), "swerve"));
 
@@ -155,7 +155,7 @@ public class RobotContainer {
         //                 1),
         //         () -> m_driver.getRightX());
 
-        // m_swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+        swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
        
         // configureChooser();
 
@@ -183,7 +183,7 @@ public class RobotContainer {
         // m_driver.a().onTrue(new RainbowCommand(ledSubsystem));
         // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
-         driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera));
+         driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
         driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d
                 (Meter.of(0.944),
                         Meter.of(0.838)),

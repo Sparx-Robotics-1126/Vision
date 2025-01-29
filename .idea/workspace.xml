@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea388704-7fad-4293-b2f3-8f0db9b9113d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lombok.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LED/BlinkCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LED/ChaseLEDColorCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LED/GradientCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LED/PulseCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LED/RainbowCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LED/SetSolidColorCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/drive/DriveToAprilTagCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/subsystems/LEDs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="ea388704-7fad-4293-b2f3-8f0db9b9113d" name="Changes" comment="cleanup KK">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/RobotContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/RobotContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LEDManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/LEDManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/drive/DriveToAprilTagCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/drive/DriveToAprilTagCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/subsystems/SwerveSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/subsystems/SwerveSubsystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,14 +102,54 @@
       <updated>1736382514426</updated>
       <workItem from="1736382517352" duration="262000" />
       <workItem from="1737930630572" duration="216000" />
-      <workItem from="1737930859735" duration="6664000" />
+      <workItem from="1737930859735" duration="34251000" />
     </task>
+    <task id="LOCAL-00001" summary="updates for vision and led KK">
+      <option name="closed" value="true" />
+      <created>1738013140791</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1738013140791</updated>
+    </task>
+    <task id="LOCAL-00002" summary="added update to drive to pose KK">
+      <option name="closed" value="true" />
+      <created>1738091392293</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738091392293</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added more updates to drive to pose KK">
+      <option name="closed" value="true" />
+      <created>1738095293474</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738095293474</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cleanup KK">
+      <option name="closed" value="true" />
+      <created>1738095440938</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738095440938</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updates for vision and led KK" />
+    <MESSAGE value="added update to drive to pose KK" />
+    <MESSAGE value="added more updates to drive to pose KK" />
+    <MESSAGE value="cleanup KK" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup KK" />
+  </component>
   <component name="WpiLibVersionService">
-    <option name="lastChecked" value="20250126173421" />
+    <option name="lastChecked" value="20250129133513" />
   </component>
 </project>

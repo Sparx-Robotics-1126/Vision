@@ -145,6 +145,7 @@ public class SwerveSubsystem extends SubsystemBase
     {
       swerveDrive.updateOdometry();
      vision.updatePoseEstimation(swerveDrive);
+     vision.updateVisionField();
     
     }
     SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
@@ -479,6 +480,20 @@ public class SwerveSubsystem extends SubsystemBase
                       fieldRelative,
                       false); // Open loop is disabled since it shouldn't be used most of the time.
   }
+    /**
+     * Basic drive control. A target field-relative ChassisSpeeds (vx, vy, omega) is converted to
+     * specific swerve module states.
+     *
+     * @param vxMeters X velocity (forwards/backwards)
+     * @param vyMeters Y velocity (strafe left/right)
+     * @param omegaRadians Angular velocity (rotation CCW+)
+     */
+    public void drive(double vxMeters, double vyMeters, double omegaRadians) {
+        var targetChassisSpeeds =
+                ChassisSpeeds.fromFieldRelativeSpeeds(vxMeters, vyMeters, omegaRadians, getHeading());
+//        setChassisSpeeds(targetChassisSpeeds, true, false);
+        setChassisSpeeds(targetChassisSpeeds);
+    }
 
   /**
    * Drive the robot given a chassis field oriented velocity.
@@ -533,6 +548,15 @@ public class SwerveSubsystem extends SubsystemBase
   public void resetOdometry(Pose2d initialHolonomicPose)
   {
     swerveDrive.resetOdometry(initialHolonomicPose);
+  }
+
+  public double getMaxAngularVelocity()
+  {
+    return swerveDrive.getMaximumChassisAngularVelocity();
+  }
+  public double getMaxSpeed()
+  {
+    return swerveDrive.getMaximumChassisVelocity();
   }
 
   /**
