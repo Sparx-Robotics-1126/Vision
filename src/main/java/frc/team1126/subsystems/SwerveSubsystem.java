@@ -145,9 +145,11 @@ public class SwerveSubsystem extends SubsystemBase
     {
       swerveDrive.updateOdometry();
      vision.updatePoseEstimation(swerveDrive);
- 
+    
     }
     SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
+    SmartDashboard.putNumber("Current Pose X",swerveDrive.getPose().getX());
+    SmartDashboard.putNumber("Current Pose Y",swerveDrive.getPose().getY());
    
   }
 
@@ -570,7 +572,6 @@ public class SwerveSubsystem extends SubsystemBase
   {
     swerveDrive.zeroGyro();
   }
-
   /**
    * Checks if the alliance is red, defaults to false if alliance isn't available.
    *

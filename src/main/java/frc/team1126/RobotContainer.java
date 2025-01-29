@@ -165,7 +165,8 @@ public class RobotContainer {
 
     private void configureDriverBindings() {
         
-        driverController.leftBumper().onTrue(new InstantCommand(() -> swerve.zeroGyro()));
+        driverController.leftTrigger().onTrue(new InstantCommand(() -> swerve.zeroGyro()));
+        driverController.rightTrigger().onChange(new InstantCommand(() -> swerve.zeroGyroWithAlliance()));
         driverController.a().onTrue((Commands.runOnce(swerve::zeroGyro)));
 //        m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
         // m_driver.b().whileTrue(
@@ -188,8 +189,8 @@ public class RobotContainer {
                         Meter.of(0.838)),
                 Rotation2d.fromDegrees(52.374))));
         driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d
-                (Meter.of(3.110),
-                        Meter.of(4.179)),
+                (Meter.of(14.59),
+                        Meter.of(4.129)),
                 Rotation2d.fromDegrees(0))));
 
     }
