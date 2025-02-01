@@ -186,13 +186,10 @@ public class RobotContainer {
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
          driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
         driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d
-                (Meter.of(0.944),
-                        Meter.of(0.838)),
-                Rotation2d.fromDegrees(52.374))));
-        driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d
-                (Meter.of(14.59),
-                        Meter.of(4.129)),
+                (Meter.of(15.2),
+                        Meter.of(4.2)),
                 Rotation2d.fromDegrees(0))));
+        driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(0))));
 
     }
    
