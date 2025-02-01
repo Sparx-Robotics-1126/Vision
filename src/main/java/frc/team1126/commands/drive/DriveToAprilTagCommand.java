@@ -6,30 +6,36 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.team1126.Constants;
 import frc.team1126.subsystems.SwerveSubsystem;
+import frc.team1126.subsystems.Vision;
+
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class DriveToAprilTagCommand extends Command {
+    
     private final SwerveSubsystem swerveSubsystem;
     private final PhotonCamera camera;
     private final XboxController controller;
+    private final Vision vision;
     private static final int TARGET_TAG_ID = 7;
     public static final AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 
     private final double VISION_TURN_kP = 0.01;
     private final double VISION_DES_ANGLE_deg = 0.0;
     private final double VISION_STRAFE_kP = 0.5;
-    private final double VISION_DES_RANGE_m = 1.25;
+    private final double VISION_DES_RANGE_m = 0.25;
 
 
     public DriveToAprilTagCommand(SwerveSubsystem swerveSubsystem, PhotonCamera camera, XboxController controller) {
         this.swerveSubsystem = swerveSubsystem;
         this.camera = camera;
         this.controller = controller;
+        this.vision = this.swerveSubsystem.getVision();
         addRequirements(swerveSubsystem);
     }
 
@@ -56,14 +62,14 @@ public class DriveToAprilTagCommand extends Command {
                 for (PhotonTrackedTarget target : result.getTargets()) {
                     if (target.getFiducialId() == TARGET_TAG_ID) {
                         targetVisible = true;
-                        var location = fieldLayout.getTagPose(TARGET_TAG_ID);
-                        targetRange = PhotonUtils.calculateDistanceToTargetMeters( Units.inchesToMeters(5.5),
-                                location.get().getZ(), 0.0, 0.0);
-                        ;
+                    
+                       targetRange= this.vision.getDistanceFromAprilTag(TARGET_TAG_ID);
+                    
                         // Drive to the tag's position
 //                        var pose = target.getBestCameraToTarget();
 //                        var transform = target.getBestCameraToTarget();
-//                        var pose = new Pose2d(transform.getTranslation().toTranslation2d(), transform.getRotation().toRotation2d());
+//                        var pose = new Pose2d(transform.getTranslation().t
+
 //                        swerveSubsystem.driveToPose(location.get().toPose2d());
                         break;
                     }
@@ -79,14 +85,25 @@ public class DriveToAprilTagCommand extends Command {
                         (VISION_DES_ANGLE_deg - targetYaw) * VISION_TURN_kP * maxAngularSpeed;
                 forward =
                         (VISION_DES_RANGE_m - targetRange) * VISION_STRAFE_kP * maxSpeed;
+                        
             }
             // Command drivetrain motors based on target speeds
+            SmartDashboard.putNumber("Forward", forward);
+            SmartDashboard.putNumber("Strafe", strafe);
+            SmartDashboard.putNumber("turn", turn);
+
+
             this.swerveSubsystem.drive(forward, strafe, turn);
         }
     }
 
     @Override
     public boolean isFinished() {
+        // SmartDashboard.putNumber("Forward", 0);
+        // SmartDashboard.putNumber("Strafe", 0);
+        // SmartDashboard.putNumber("turn", 0);
+
+        // SmartDashboard.putNumber("Range", 0);
         return false; // Run until interrupted
     }
 }

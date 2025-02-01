@@ -78,6 +78,12 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
 
+
+            // SmartDashboard.putNumber("Forward", 0);
+            // SmartDashboard.putNumber("Strafe", 0);
+            // SmartDashboard.putNumber("turn", 0);
+    
+            // SmartDashboard.putNumber("Range", 0);
         // robotContainer.m_swerve.zeroGyro();
         // robotContainer.m_storage.resetNote();
         // RobotContainer.swerve.stopAllModules();
@@ -86,12 +92,13 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         // robotContainer.setCANdle();
-        robotContainer.EndGameRumble();
-        robotContainer.upToSpeedRumble();
+        // robotContainer.EndGameRumble();
+        // robotContainer.upToSpeedRumble();
     }
 
     @Override
     public void teleopExit() {
+        CommandScheduler.getInstance().cancelAll();
     }
 
     @Override

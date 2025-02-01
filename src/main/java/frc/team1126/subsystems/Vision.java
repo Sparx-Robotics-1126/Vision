@@ -22,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1126.Robot;
 import java.awt.Desktop;
 import java.util.ArrayList;
@@ -97,6 +98,11 @@ public class Vision
       }
 
       openSimCameraViews();
+          
+    // SmartDashboard.putNumber("Forward", 0);
+    // SmartDashboard.putNumber("Strafe", 0);
+    // SmartDashboard.putNumber("turn", 0);
+
     }
   }
 
@@ -117,6 +123,36 @@ public int getFrontTarget(){
         }
         return targetId;
 
+}
+
+public int getLeftTarget(){
+  var results = Cameras.LEFT_CAM.camera.getAllUnreadResults();
+  int targetId = 0;
+        if (!results.isEmpty()) {
+            var result = results.get(results.size() - 1);
+
+            if (result.hasTargets()) {
+                for (PhotonTrackedTarget target : result.getTargets()) {
+                  targetId =target.fiducialId;
+                }
+            }
+        }
+        return targetId;
+}
+
+public int getRightTarget(){
+  var results = Cameras.RIGHT_CAM.camera.getAllUnreadResults();
+  int targetId = 0;
+        if (!results.isEmpty()) {
+            var result = results.get(results.size() - 1);
+
+            if (result.hasTargets()) {
+                for (PhotonTrackedTarget target : result.getTargets()) {
+                  targetId =target.fiducialId;
+                }
+            }
+        }
+        return targetId;
 }
 
   /**
