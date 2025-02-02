@@ -147,13 +147,13 @@ public class SwerveSubsystem extends SubsystemBase
      vision.updatePoseEstimation(swerveDrive);
      vision.updateVisionField();
     
-    }
+    
     SmartDashboard.putNumber("Left Target", vision.getLeftTarget());
     SmartDashboard.putNumber("Right Target", vision.getRightTarget());
     SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
     SmartDashboard.putNumber("Current Pose X",swerveDrive.getPose().getX());
     SmartDashboard.putNumber("Current Pose Y",swerveDrive.getPose().getY());
-    
+    }
 
   }
   public Vision getVision(){

@@ -68,7 +68,7 @@ public class RobotContainer {
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(swerve.getSwerveDrive(),
                                                                 () -> driverController.getLeftY() * -1,
                                                                 () -> driverController.getLeftX() * -1)
-                                                            .withControllerRotationAxis(driverController::getRightX)
+                                                            .withControllerRotationAxis(() -> driverController.getRightX() *-1)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -134,12 +134,12 @@ public class RobotContainer {
         m_noteCamera = new PhotonCamera("front");
         /* REGISTER PATHPLANNER COMMANDS HERE */
      
-    Command test = swerve.driveCommand(
-                () -> MathUtil.clamp(MathUtil.applyDeadband(-driverController.getLeftY(), .1), -1,
-                        1),
-                () -> MathUtil.clamp(MathUtil.applyDeadband(-driverController.getLeftX(), .1), -1,
-                        1),
-                () -> -driverController.getRightX());
+    // Command test = swerve.driveCommand(
+    //             () -> MathUtil.clamp(MathUtil.applyDeadband(-driverController.getLeftY(), .1), -1,
+    //                     1),
+    //             () -> MathUtil.clamp(MathUtil.applyDeadband(-driverController.getLeftX(), .1), -1,
+    //                     1),
+    //             () -> driverController.getRightX());
 
         //OTHER COMMANDS
         //NamedCommands.registerCommand("limelightTarget", new LLRotationAlignCommand(m_swerve).withTimeout(1.5));
@@ -186,8 +186,8 @@ public class RobotContainer {
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
          driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
         driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d
-                (Meter.of(15.2),
-                        Meter.of(4.2)),
+                (Meter.of(14.65),
+                        Meter.of(4.11)),
                 Rotation2d.fromDegrees(0))));
         driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(0))));
 
