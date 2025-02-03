@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea388704-7fad-4293-b2f3-8f0db9b9113d" name="Changes" comment="cleanup KK">
+    <list default="true" id="ea388704-7fad-4293-b2f3-8f0db9b9113d" name="Changes" comment="updates for driving to tag">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/RobotContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/RobotContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/drive/DriveToAprilTagCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/commands/drive/DriveToAprilTagCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/frc/team1126/subsystems/SwerveSubsystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frc/team1126/subsystems/SwerveSubsystem.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +40,10 @@
     &quot;accountId&quot;: &quot;5d8690c4-7087-4a31-b545-773459bc2269&quot;
   }
 }</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -53,22 +54,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Sparx/Documents/2025 Repository/Vision",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sparx/Documents/2025 Repository/Vision&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/vendordeps" />
@@ -87,8 +88,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.153" />
-        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.153" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
       </set>
     </attachedChunks>
   </component>
@@ -102,7 +103,8 @@
       <updated>1736382514426</updated>
       <workItem from="1736382517352" duration="262000" />
       <workItem from="1737930630572" duration="216000" />
-      <workItem from="1737930859735" duration="34251000" />
+      <workItem from="1737930859735" duration="39401000" />
+      <workItem from="1738592564917" duration="3016000" />
     </task>
     <task id="LOCAL-00001" summary="updates for vision and led KK">
       <option name="closed" value="true" />
@@ -136,20 +138,40 @@
       <option name="project" value="LOCAL" />
       <updated>1738095440938</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updates for driving to tag">
+      <option name="closed" value="true" />
+      <created>1738184217116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738184217116</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updates for vision and led KK" />
     <MESSAGE value="added update to drive to pose KK" />
     <MESSAGE value="added more updates to drive to pose KK" />
     <MESSAGE value="cleanup KK" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup KK" />
+    <MESSAGE value="updates for driving to tag" />
+    <option name="LAST_COMMIT_MESSAGE" value="updates for driving to tag" />
   </component>
   <component name="WpiLibVersionService">
-    <option name="lastChecked" value="20250129133513" />
+    <option name="lastChecked" value="20250203132249" />
   </component>
 </project>

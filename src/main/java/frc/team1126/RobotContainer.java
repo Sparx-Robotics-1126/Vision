@@ -237,21 +237,6 @@ public class RobotContainer {
 
     public void configureChooser() {
 
-        // autos using pathplanner
-        // chooser.setDefaultOption("Do Nothing", new WaitCommand(1));
-        // chooser.addOption("Leave Start Area", new PathPlannerAuto("LeaveStartingZone"));
-        // chooser.addOption("ShootAndMoveFromFront", new PathPlannerAuto("ShootMoveShoot"));
-
-        // chooser.addOption("shootfromAmpSide", new PathPlannerAuto("MoveFromAngleShoot"));
-        // chooser.addOption("shootFromSourceSide", new PathPlannerAuto("ShootFromRight"));
-        // chooser.addOption("3 NOTE AUTO", new PathPlannerAuto("3NoteAuto"));
-        // chooser.addOption("x tuning", new PathPlannerAuto("xTuningTest"));
-        // chooser.addOption("y tuning", new PathPlannerAuto("test"));
-        // chooser.addOption("angleTuning",new PathPlannerAuto("AngleTuning"));
-
-        // chooser.addOption("shootStage", new PathPlannerAuto("playoffs 1"));
-
-
     }
 
     /**
