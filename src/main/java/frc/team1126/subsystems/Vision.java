@@ -125,20 +125,20 @@ public int getFrontTarget(){
 
 }
 
-public int getLeftTarget(){
-  var results = Cameras.LEFT_CAM.camera.getAllUnreadResults();
-  int targetId = 0;
-        if (!results.isEmpty()) {
-            var result = results.get(results.size() - 1);
+// public int getLeftTarget(){
+//   var results = Cameras.LEFT_CAM.camera.getAllUnreadResults();
+//   int targetId = 0;
+//         if (!results.isEmpty()) {
+//             var result = results.get(results.size() - 1);
 
-            if (result.hasTargets()) {
-                for (PhotonTrackedTarget target : result.getTargets()) {
-                  targetId =target.fiducialId;
-                }
-            }
-        }
-        return targetId;
-}
+//             if (result.hasTargets()) {
+//                 for (PhotonTrackedTarget target : result.getTargets()) {
+//                   targetId =target.fiducialId;
+//                 }
+//             }
+//         }
+//         return targetId;
+// }
 
 public int getRightTarget(){
   var results = Cameras.RIGHT_CAM.camera.getAllUnreadResults();
@@ -399,12 +399,12 @@ public int getRightTarget(){
     //                            Units.inchesToMeters(13.5),
     //                            Units.inchesToMeters(5.5)),
     //          VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
-    LEFT_CAM("left",
-             new Rotation3d(0, 18, Math.toRadians(30)),
-             new Translation3d(Units.inchesToMeters(13.5),
-                               Units.inchesToMeters(13.5),
-                               Units.inchesToMeters(5.5)),
-             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+    // LEFT_CAM("left",
+    //          new Rotation3d(0, 18, Math.toRadians(30)),
+    //          new Translation3d(Units.inchesToMeters(13.5),
+    //                            Units.inchesToMeters(13.5),
+    //                            Units.inchesToMeters(5.5)),
+    //          VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
     /**
      * Right Camera
      */

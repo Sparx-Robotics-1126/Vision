@@ -10,6 +10,8 @@ import java.io.File;
 import frc.team1126.subsystems.LEDs;
 import org.photonvision.PhotonCamera;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -36,7 +38,8 @@ public class RobotContainer {
 
     final static SendableChooser<Command> chooser = new SendableChooser<>();
 
-    
+    final static SendableChooser<Command> m_chooser = new SendableChooser<>();
+
     CommandXboxController driverController = new CommandXboxController(Constants.GeneralConstants.DRIVER_CONTROLLER_ID);
     // CommandXboxController m_operator = new CommandXboxController(Constants.GeneralConstants.OPERATOR_CONTROLLER_ID);
 
@@ -158,7 +161,7 @@ public class RobotContainer {
 
         swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
        
-        // configureChooser();
+        configureChooser();
 
         configureDriverBindings();
 
@@ -237,6 +240,8 @@ public class RobotContainer {
 
     public void configureChooser() {
 
+        m_chooser.setDefaultOption("testAuto", new PathPlannerAuto("testAuto"));
+
     }
 
     /**
@@ -252,7 +257,7 @@ public class RobotContainer {
         // // the command to be run in autonomous
 
         // return _chooser.getSelected();
-        return chooser.getSelected();
+        return m_chooser.getSelected();
         // return swerve.getAutonomousCommand(_chooser.().getName(), true);
 
     }
