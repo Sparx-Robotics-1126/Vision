@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().run();
         
 
-        SmartDashboard.putData("AUTO CHOICES ", RobotContainer.chooser);
+        SmartDashboard.putData("AUTO CHOICES ", RobotContainer.m_chooser);
         // SmartDashboard.putData("TEST", SwerveSubsystem.builder);
     }
 

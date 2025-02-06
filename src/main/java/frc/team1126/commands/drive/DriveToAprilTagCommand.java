@@ -30,6 +30,8 @@ public class DriveToAprilTagCommand extends Command {
     private final double VISION_STRAFE_kP = 0.5;
     private final double VISION_DES_RANGE_m = 0.25;
 
+    private double y_pos = 0.0;
+
 
     public DriveToAprilTagCommand(SwerveSubsystem swerveSubsystem, PhotonCamera camera, XboxController controller) {
         this.swerveSubsystem = swerveSubsystem;
@@ -48,12 +50,14 @@ public class DriveToAprilTagCommand extends Command {
         double forward = -controller.getLeftY() * maxSpeed;
         double strafe = -controller.getLeftX() * maxSpeed;
         double turn = -controller.getRightX() * maxAngularSpeed;
+        
 
 
         // Read in relevant data from the Camera
         boolean targetVisible = false;
         double targetYaw = 0.0;
         double targetRange = 0.0;
+        double offset = 20.0;
         var results = camera.getAllUnreadResults();
         if (!results.isEmpty()) {
             var result = results.get(results.size() - 1);
@@ -66,11 +70,14 @@ public class DriveToAprilTagCommand extends Command {
                        targetRange= this.vision.getDistanceFromAprilTag(TARGET_TAG_ID);
                     
                         // Drive to the tag's position
-//                        var pose = target.getBestCameraToTarget();
-//                        var transform = target.getBestCameraToTarget();
-//                        var pose = new Pose2d(transform.getTranslation().t
+                       var pose = target.getBestCameraToTarget();
+                       var transform = target.getBestCameraToTarget();
+                       var position = new Pose2d(transform.getTranslation().getX(), transform.getTranslation().getY() - offset, transform.getRotation().toRotation2d());
+                       y_pos = transform.getTranslation().getY();
+                       System.out.println("LOOK!!!!");
 
-//                        swerveSubsystem.driveToPose(location.get().toPose2d());
+                       //swerveSubsystem.driveToPose(position);
+                       System.out.println("WHAT THE FISH!!!!");
                         break;
                     }
                 }
@@ -102,7 +109,9 @@ public class DriveToAprilTagCommand extends Command {
         // SmartDashboard.putNumber("Forward", 0);
         // SmartDashboard.putNumber("Strafe", 0);
         // SmartDashboard.putNumber("turn", 0);
-
+        if(swerveSubsystem.getPose().getY() == y_pos){
+            return true;
+        }
         // SmartDashboard.putNumber("Range", 0);
         return false; // Run until interrupted
     }

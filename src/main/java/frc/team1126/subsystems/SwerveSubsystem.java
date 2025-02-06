@@ -15,6 +15,7 @@ import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -140,6 +141,7 @@ public class SwerveSubsystem extends SubsystemBase
       swerveDrive.updateOdometry();
      vision.updatePoseEstimation(swerveDrive);
      vision.updateVisionField();
+     
     
     
     // SmartDashboard.putNumber("Left Target", vision.getLeftTarget());
@@ -196,7 +198,7 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5.0, 0.0, 0.0),
+              new PIDConstants(1.47, 0.0, 0.0),
               // Translation PID constants
               new PIDConstants(5.0, 0.0, 0.0)
               // Rotation PID constants
