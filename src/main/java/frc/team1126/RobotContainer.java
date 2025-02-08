@@ -7,6 +7,8 @@ package frc.team1126;
 
 import java.io.File;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import frc.team1126.commands.drive.LinearDriveToPose;
 import frc.team1126.subsystems.LEDs;
 import org.photonvision.PhotonCamera;
 
@@ -194,6 +196,8 @@ public class RobotContainer {
                 Rotation2d.fromDegrees(0))));
         driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(0))));
 
+        driverController.leftBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestLeftBranchPose(),() ->  new ChassisSpeeds()));
+        driverController.rightBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
     }
    
 //public void configureLEDs() {
