@@ -33,6 +33,7 @@ public final class Constants {
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
   public static final double MAX_SPEED  = Units.feetToMeters(14.5);
+  public static final double ROBOT_WIDTH_W_BUMBERS = .762;
   
   public final class BatteryMonitor {
     public final static double MAXVOLTAGE = 12;
@@ -74,6 +75,59 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 2;
     }
 
+//from team 2638 https://github.com/rebels2638/2025-Reefscape-Robot
+    public static final class AlignmentConstants {
+        // these assume the robots volume is zero. does not take into account frame
+       
+        public static final double kINTER_BRANCH_DIST_METER = 0.34;
+        public static final Pose2d[] kCENTER_FACES =
+            new Pose2d[6]; // Starting facing the driver station in clockwise order
+        static {
+          // Initialize faces
+          kCENTER_FACES[0] =
+            //bottom
+              new Pose2d(
+                3.642, 
+                4.024,
+                Rotation2d.fromDegrees(0));
+            //top right
+          kCENTER_FACES[1] =
+              new Pose2d(
+                4.916, 
+                3.285,
+                Rotation2d.fromDegrees(120));
+            //bottom right
+          kCENTER_FACES[2] =
+              new Pose2d(
+                4.064,
+                3.291,
+                Rotation2d.fromDegrees(60));
+            //top
+          kCENTER_FACES[3] =
+              new Pose2d(
+                5.344, 
+                4.023,
+                Rotation2d.fromDegrees(180));
+            //bottom left
+          kCENTER_FACES[4] =
+              new Pose2d(
+                4.064, 
+                4.763,
+                Rotation2d.fromDegrees(-60));
+            //top left
+          kCENTER_FACES[5] =
+              new Pose2d(
+                4.912, 
+                4.770,
+                Rotation2d.fromDegrees(-120));
+        }
+
+        public static final Translation2d CORAL_OFFSET_FROM_ROBOT_CENTER = new Translation2d(0,0);
+        
+        private AlignmentConstants() {}
+      }
+
+    
     public static class AprilTags { //CHANGE THESE FOR THIS YEAR"S GAME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public static final int SOURCE_RIGHT_BLUE_ID = 1;
         public static final int SOURCE_LEFT_BLUE_ID = 2;
