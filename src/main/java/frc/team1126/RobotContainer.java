@@ -28,6 +28,7 @@ import frc.team1126.Constants.OperatorConstants;
 //import frc.team1126.commands.LEDManager;
 import frc.team1126.commands.drive.AbsoluteDriveAdv;
 import frc.team1126.commands.drive.DriveToAprilTagCommand;
+import frc.team1126.commands.drive.DriveToClosestLeftBranchPoseCommand;
 import frc.team1126.subsystems.SwerveSubsystem;
 import frc.team1126.subsystems.Vision;
 import swervelib.SwerveInputStream;
@@ -190,12 +191,14 @@ public class RobotContainer {
         // m_driver.a().onTrue(new RainbowCommand(ledSubsystem));
         // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
-         driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
+          driverController.leftBumper().whileTrue(new DriveToClosestLeftBranchPoseCommand(swerve));
+    driverController.x().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
+        //  driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
         driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(Meter.of(16.4),Meter.of(4.4)),Rotation2d.fromDegrees(180))));
         driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(180))));
-
-        driverController.leftBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestLeftBranchPose(),() ->  new ChassisSpeeds()));
-        driverController.rightBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
+driverController.leftBumper().whileTrue(swerve.driveToPose(swerve.getClosestLeftBranchPose()));
+        // driverController.leftBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestLeftBranchPose(),() ->  new ChassisSpeeds()));
+        // driverController.rightBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
     }
    
 //public void configureLEDs() {

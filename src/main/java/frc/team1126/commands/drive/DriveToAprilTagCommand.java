@@ -12,6 +12,8 @@ import frc.team1126.Constants;
 import frc.team1126.subsystems.SwerveSubsystem;
 import frc.team1126.subsystems.Vision;
 
+import java.lang.annotation.Target;
+
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
@@ -66,12 +68,13 @@ public class DriveToAprilTagCommand extends Command {
                 for (PhotonTrackedTarget target : result.getTargets()) {
                     if (target.getFiducialId() == TARGET_TAG_ID) {
                         targetVisible = true;
-                    
+                    System.out.println("Has Target");
                         targetYaw = target.getYaw();
-                        targetRange = PhotonUtils.calculateDistanceToTargetMeters(.5, 
-                        1.435,
-                        Units.degreesToRadians(-30), 
-                       Units.degreesToRadians(target.getPitch()));
+                        targetRange = PhotonUtils.getDistanceToPose(swerveSubsystem.getPose(),swerveSubsystem.getClosestLeftBranchPose());
+                    //     targetRange = PhotonUtils.calculateDistanceToTargetMeters(Units.inchesToMeters(5.75), 
+                    //     Units.inchesToMeters(8.875),
+                    //     Units.degreesToRadians(18), 
+                    //    Units.degreesToRadians(0));
                     //    targetRange= this.vision.getDistanceFromAprilTag(TARGET_TAG_ID);
                     // //13.8905
                     //     // Drive to the tag's position
@@ -100,9 +103,7 @@ public class DriveToAprilTagCommand extends Command {
                         
             }
             // Command drivetrain motors based on target speeds
-            SmartDashboard.putNumber("Forward", forward);
-            SmartDashboard.putNumber("Strafe", strafe);
-            SmartDashboard.putNumber("turn", turn);
+          System.out.println("Forward " + forward + " strafe " + strafe +" turn" + turn);
 
 
             this.swerveSubsystem.drive(forward *-1, strafe, turn);

@@ -162,11 +162,13 @@ public class SwerveSubsystem extends SubsystemBase
     
     
     // SmartDashboard.putNumber("Left Target", vision.getLeftTarget());
-    SmartDashboard.putNumber("Right Target", vision.getRightTarget());
-    SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
+    // SmartDashboard.putNumber("Right Target", vision.getRightTarget());
+    // SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
     SmartDashboard.putNumber("Current Pose X",swerveDrive.getPose().getX());
     SmartDashboard.putNumber("Current Pose Y",swerveDrive.getPose().getY());
-    SmartDashboard.putNumber("Distance to Target", vision.getDistanceFromAprilTag(7));
+    // SmartDashboard.putNumber("Distance to Target", vision.getDistanceFromAprilTag(7));
+    // SmartDashboard.putNumber("Closest Left Pos X", getClosestLeftBranchPose().getMeasureX().in(Meter));
+    // SmartDashboard.putNumber("Closest Left Pos Y", getClosestLeftBranchPose().getMeasureY().in(Meter));
     }
 
   }
@@ -801,7 +803,7 @@ public class SwerveSubsystem extends SubsystemBase
         nearest : 
         FlippingUtil.flipFieldPose(nearest)
     : nearest;
-
+   System.out.println("RobotState/aligmentPoseSearch/nearest " + nearest);
     // Logger.recordOutput("RobotState/aligmentPoseSearch/nearest", nearest);
     return nearest;
   }
