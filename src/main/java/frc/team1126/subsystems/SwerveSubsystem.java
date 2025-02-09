@@ -160,7 +160,6 @@ public class SwerveSubsystem extends SubsystemBase
      vision.updateVisionField();
      
     
-    
     // SmartDashboard.putNumber("Left Target", vision.getLeftTarget());
     // SmartDashboard.putNumber("Right Target", vision.getRightTarget());
     // SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
@@ -220,7 +219,7 @@ public class SwerveSubsystem extends SubsystemBase
               // PPHolonomicController is the built in path following controller for holonomic drive trains
               new PIDConstants(1.47, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0)
+              new PIDConstants(0, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,
@@ -789,6 +788,7 @@ public class SwerveSubsystem extends SubsystemBase
     Pose2d current = swerveDrive.getPose();
     List<Pose2d> candidates = new ArrayList<>();
   
+    System.out.println("Alliance " + alliance.get());
     candidates.add(offsetBranchPose(AlignmentConstants.kCENTER_FACES[0], true));
     candidates.add(offsetBranchPose(AlignmentConstants.kCENTER_FACES[1], false));
     candidates.add(offsetBranchPose(AlignmentConstants.kCENTER_FACES[2], true));
