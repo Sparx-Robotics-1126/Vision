@@ -183,6 +183,7 @@ public class RobotContainer {
         //                       m_driver.start().whileTrue(Commands.none());
         //                       m_driver.back().whileTrue(Commands.none());
         //                       m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
+        
         //                       m_driver.rightBumper().onTrue(Commands.none());
         // m_driver.y().onTrue(new ChaseLEDColorCommand(ledSubsystem, new Color8Bit(255, 0, 0), 10)); // Chasing red color
         // m_driver.x().onTrue(new GradientCommand(ledSubsystem, new Color8Bit(0,0,255), new Color8Bit(255,0,0)));
@@ -190,11 +191,8 @@ public class RobotContainer {
         // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
          //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
          driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
-        driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d
-                (Meter.of(14.65),
-                        Meter.of(4.11)),
-                Rotation2d.fromDegrees(0))));
-        driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(0))));
+        driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(Meter.of(16.4),Meter.of(4.4)),Rotation2d.fromDegrees(180))));
+        driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(180))));
 
         driverController.leftBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestLeftBranchPose(),() ->  new ChassisSpeeds()));
         driverController.rightBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));

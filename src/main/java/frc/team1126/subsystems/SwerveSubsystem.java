@@ -60,6 +60,7 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
+
 public class SwerveSubsystem extends SubsystemBase
 {
 
@@ -165,6 +166,7 @@ public class SwerveSubsystem extends SubsystemBase
     SmartDashboard.putNumber("Front Target", vision.getFrontTarget());
     SmartDashboard.putNumber("Current Pose X",swerveDrive.getPose().getX());
     SmartDashboard.putNumber("Current Pose Y",swerveDrive.getPose().getY());
+    SmartDashboard.putNumber("Distance to Target", vision.getDistanceFromAprilTag(7));
     }
 
   }

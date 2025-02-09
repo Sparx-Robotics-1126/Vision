@@ -67,17 +67,22 @@ public class DriveToAprilTagCommand extends Command {
                     if (target.getFiducialId() == TARGET_TAG_ID) {
                         targetVisible = true;
                     
-                       targetRange= this.vision.getDistanceFromAprilTag(TARGET_TAG_ID);
-                    
-                        // Drive to the tag's position
-                       var pose = target.getBestCameraToTarget();
-                       var transform = target.getBestCameraToTarget();
-                       var position = new Pose2d(transform.getTranslation().getX(), transform.getTranslation().getY() - offset, transform.getRotation().toRotation2d());
-                       y_pos = transform.getTranslation().getY();
-                       System.out.println("LOOK!!!!");
+                        targetYaw = target.getYaw();
+                        targetRange = PhotonUtils.calculateDistanceToTargetMeters(.5, 
+                        1.435,
+                        Units.degreesToRadians(-30), 
+                       Units.degreesToRadians(target.getPitch()));
+                    //    targetRange= this.vision.getDistanceFromAprilTag(TARGET_TAG_ID);
+                    // //13.8905
+                    //     // Drive to the tag's position
+                    //    var pose = target.getBestCameraToTarget();
+                    //    var transform = target.getBestCameraToTarget();
+                    //    var position = new Pose2d(transform.getTranslation().getX(), transform.getTranslation().getY(), transform.getRotation().toRotation2d());
+                    //    y_pos = transform.getTranslation().getY();
+                    //    System.out.println("LOOK!!!!");
 
-                       //swerveSubsystem.driveToPose(position);
-                       System.out.println("WHAT THE FISH!!!!");
+                    // //    swerveSubsystem.driveToPose(position);
+                    //    System.out.println("WHAT THE FISH!!!!");
                         break;
                     }
                 }
@@ -100,7 +105,7 @@ public class DriveToAprilTagCommand extends Command {
             SmartDashboard.putNumber("turn", turn);
 
 
-            this.swerveSubsystem.drive(forward, strafe, turn);
+            this.swerveSubsystem.drive(forward *-1, strafe, turn);
         }
     }
 
@@ -109,7 +114,7 @@ public class DriveToAprilTagCommand extends Command {
         // SmartDashboard.putNumber("Forward", 0);
         // SmartDashboard.putNumber("Strafe", 0);
         // SmartDashboard.putNumber("turn", 0);
-        if(swerveSubsystem.getPose().getY() == y_pos){
+        if( camera.getAllUnreadResults().size() == 0){
             return true;
         }
         // SmartDashboard.putNumber("Range", 0);
