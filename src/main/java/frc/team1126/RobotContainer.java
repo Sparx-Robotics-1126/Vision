@@ -8,6 +8,8 @@ package frc.team1126;
 import java.io.File;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import frc.team1126.commands.drive.LinearDriveToPose;
 import frc.team1126.subsystems.LEDs;
 import org.photonvision.PhotonCamera;
@@ -85,7 +87,11 @@ public class RobotContainer {
   driverController::getRightY)
                                                            .headingWhile(true);
 
-
+    /**
+     * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
+     */
+    SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
+            .allianceRelativeControl(false);
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
   // controls are front-left positive
@@ -121,7 +127,36 @@ public class RobotContainer {
                                                                                                         2) * Math.PI) *
                                                                                                       (Math.PI * 2))
                                                                      .headingWhile(true);
+    /**
+     * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
+     */
 
+
+    SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(swerve.getSwerveDrive(),
+                    () -> -driverController.getLeftY(),
+                    () -> -driverController.getLeftX())
+            .withControllerRotationAxis(() -> driverController.getRawAxis(
+                    2))
+            .deadband(OperatorConstants.DEADBAND)
+            .scaleTranslation(0.8)
+            .allianceRelativeControl(true);
+    // Derive the heading axis with math!
+    SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
+            .withControllerHeadingAxis(() ->
+                            Math.sin(
+                                    driverController.getRawAxis(
+                                            2) *
+                                            Math.PI) *
+                                    (Math.PI *
+                                            2),
+                    () ->
+                            Math.cos(
+                                    driverController.getRawAxis(
+                                            2) *
+                                            Math.PI) *
+                                    (Math.PI *
+                                            2))
+            .headingWhile(true);
   Command driveFieldOrientedDirectAngleSim = swerve.driveFieldOriented(driveDirectAngleSim);
 
   Command driveSetpointGenSim = swerve.driveWithSetpointGeneratorFieldRelative(driveDirectAngleSim);
@@ -162,7 +197,7 @@ public class RobotContainer {
         //                 1),
         //         () -> m_driver.getRightX());
 
-        swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+
        
         configureChooser();
 
@@ -171,34 +206,64 @@ public class RobotContainer {
     }
 
     private void configureDriverBindings() {
-        
-        driverController.leftTrigger().onTrue(new InstantCommand(() -> swerve.zeroGyro()));
-        driverController.rightTrigger().onChange(new InstantCommand(() -> swerve.zeroGyroWithAlliance()));
-        driverController.a().onTrue((Commands.runOnce(swerve::zeroGyro)));
+
+        Command driveFieldOrientedDirectAngle      = swerve.driveFieldOriented(driveDirectAngle);
+        Command driveFieldOrientedAnglularVelocity = swerve.driveFieldOriented(driveAngularVelocity);
+        Command driveRobotOrientedAngularVelocity  = swerve.driveFieldOriented(driveRobotOriented);
+        Command driveSetpointGen = swerve.driveWithSetpointGeneratorFieldRelative(
+                driveDirectAngle);
+        Command driveFieldOrientedDirectAngleKeyboard      = swerve.driveFieldOriented(driveDirectAngleKeyboard);
+        Command driveFieldOrientedAnglularVelocityKeyboard = swerve.driveFieldOriented(driveAngularVelocityKeyboard);
+        Command driveSetpointGenKeyboard = swerve.driveWithSetpointGeneratorFieldRelative(                driveDirectAngleKeyboard);
+
+        swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+        if (RobotBase.isSimulation())
+        {
+            swerve.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
+        } else
+        {
+            swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+        }
+
+        if (DriverStation.isTest())
+        {
+            swerve.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+
+            driverController.x().whileTrue(Commands.runOnce(swerve::lock, swerve).repeatedly());
+            driverController.y().whileTrue(swerve.driveToDistanceCommand(1.0, 0.2));
+            driverController.start().onTrue((Commands.runOnce(swerve::zeroGyro)));
+            driverController.back().whileTrue(swerve.centerModulesCommand());
+            driverController.leftBumper().onTrue(Commands.none());
+            driverController.rightBumper().onTrue(Commands.none());
+        } else {
+            driverController.leftTrigger().onTrue(new InstantCommand(() -> swerve.zeroGyro()));
+            driverController.rightTrigger().onChange(new InstantCommand(() -> swerve.zeroGyroWithAlliance()));
+            driverController.a().onTrue((Commands.runOnce(swerve::zeroGyro)));
 //        m_driver.x().onTrue(Commands.runOnce(m_swerve::addFakeVisionReading));
-        // m_driver.b().whileTrue(
-        //     m_swerve.driveToPose(
-        //       new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-        //                       );
-        //                     //   m_driver.y().whileTrue(m_swerve.aimAtSpeaker(2));
-        //                       m_driver.start().whileTrue(Commands.none());
-        //                       m_driver.back().whileTrue(Commands.none());
-        //                       m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
-        
-        //                       m_driver.rightBumper().onTrue(Commands.none());
-        // m_driver.y().onTrue(new ChaseLEDColorCommand(ledSubsystem, new Color8Bit(255, 0, 0), 10)); // Chasing red color
-        // m_driver.x().onTrue(new GradientCommand(ledSubsystem, new Color8Bit(0,0,255), new Color8Bit(255,0,0)));
-        // m_driver.a().onTrue(new RainbowCommand(ledSubsystem));
-        // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
-         //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
-          driverController.leftBumper().whileTrue(new DriveToClosestLeftBranchPoseCommand(swerve));
-    driverController.x().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
-        //  driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
-        driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(Meter.of(16.4),Meter.of(4.4)),Rotation2d.fromDegrees(180))));
-        driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13,  4),           Rotation2d.fromDegrees(180))));
-driverController.leftBumper().whileTrue(swerve.driveToPose(swerve.getClosestLeftBranchPose()));
-        // driverController.leftBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestLeftBranchPose(),() ->  new ChassisSpeeds()));
-        // driverController.rightBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
+            // m_driver.b().whileTrue(
+            //     m_swerve.driveToPose(
+            //       new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+            //                       );
+            //                     //   m_driver.y().whileTrue(m_swerve.aimAtSpeaker(2));
+            //                       m_driver.start().whileTrue(Commands.none());
+            //                       m_driver.back().whileTrue(Commands.none());
+            //                       m_driver.leftBumper().whileTrue(Commands.runOnce(m_swerve::lock, m_swerve).repeatedly());
+
+            //                       m_driver.rightBumper().onTrue(Commands.none());
+            // m_driver.y().onTrue(new ChaseLEDColorCommand(ledSubsystem, new Color8Bit(255, 0, 0), 10)); // Chasing red color
+            // m_driver.x().onTrue(new GradientCommand(ledSubsystem, new Color8Bit(0,0,255), new Color8Bit(255,0,0)));
+            // m_driver.a().onTrue(new RainbowCommand(ledSubsystem));
+            // m_driver.b().onTrue(new PulseCommand(ledSubsystem, new Color8Bit(0, 255, 0), 7));
+            //m_driver.leftBumper().onTrue(new SetSolidColorCommand(ledSubsystem, new Color8Bit(0,0,255)));
+            driverController.leftBumper().whileTrue(new DriveToClosestLeftBranchPoseCommand(swerve));
+            driverController.x().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
+            //  driverController.x().whileTrue(new DriveToAprilTagCommand(swerve, m_noteCamera, driverController.getHID()));
+            driverController.b().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(Meter.of(16.4), Meter.of(4.4)), Rotation2d.fromDegrees(180))));
+            driverController.y().whileTrue(swerve.driveToPose(new Pose2d(new Translation2d(13, 4), Rotation2d.fromDegrees(180))));
+            driverController.leftBumper().whileTrue(swerve.driveToPose(swerve.getClosestLeftBranchPose()));
+            // driverController.leftBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestLeftBranchPose(),() ->  new ChassisSpeeds()));
+            // driverController.rightBumper().whileTrue(new LinearDriveToPose(swerve, () -> swerve.getClosestRightBranchPose(), () -> new ChassisSpeeds()));
+        }
     }
    
 //public void configureLEDs() {
