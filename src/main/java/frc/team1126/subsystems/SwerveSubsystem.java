@@ -788,7 +788,7 @@ public class SwerveSubsystem extends SubsystemBase
     Pose2d current = swerveDrive.getPose();
     List<Pose2d> candidates = new ArrayList<>();
   
-    System.out.println("Alliance " + alliance.get());
+    // System.out.println("Alliance " + alliance.get());
     candidates.add(offsetBranchPose(AlignmentConstants.kCENTER_FACES[0], true));
     candidates.add(offsetBranchPose(AlignmentConstants.kCENTER_FACES[1], false));
     candidates.add(offsetBranchPose(AlignmentConstants.kCENTER_FACES[2], true));
@@ -860,6 +860,8 @@ public class SwerveSubsystem extends SubsystemBase
     return nearest;
   }
 
+  
+  }
 
 
-}
+
