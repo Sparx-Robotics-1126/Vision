@@ -310,7 +310,7 @@ public class RobotContainer {
 
     public void configureChooser() {
 
-        m_chooser.setDefaultOption("testAuto", new PathPlannerAuto("testAuto"));
+        m_chooser.setDefaultOption("straightAuto", new PathPlannerAuto("straightAuto"));
 
     }
 
