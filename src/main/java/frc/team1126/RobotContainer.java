@@ -8,8 +8,11 @@ package frc.team1126;
 import java.io.File;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.team1126.commands.drive.LinearDriveToPose;
 import frc.team1126.subsystems.LEDs;
 import org.photonvision.PhotonCamera;
@@ -359,6 +362,11 @@ public class RobotContainer {
         //     m_operator.getHID().setRumble(GenericHID.RumbleType.kBothRumble,1);
         // } 
         // m_operator.getHID().setRumble(GenericHID.RumbleType.kBothRumble,0);
+    }
+
+        public static void getSmartDashboardTable() {
+        ShuffleboardTab tab = Shuffleboard.getTab("SmartDashboard");
+        GenericEntry test = tab.add("test variable", 1).getEntry();
     }
 
 }

@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9152071785781475,
-        "y": 7.000024064669001
+        "x": 4.999993429161889,
+        "y": 7.004387484506515
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End Point"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 6.998108552631579
       },
       "prevControl": {
-        "x": 4.000666028869817,
-        "y": 6.997022379544938
+        "x": 4.000000590672012,
+        "y": 6.997021656282163
       },
       "nextControl": null,
       "isLocked": false,
